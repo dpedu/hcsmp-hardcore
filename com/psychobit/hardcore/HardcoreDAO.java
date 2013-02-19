@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Database connection class for the hardcore plugin
@@ -34,12 +33,6 @@ public class HardcoreDAO
 		} catch( Exception e ) { 
 			System.err.println( "Cannot connect to database server: " + e.getMessage() );
 			return;
-		}
-		try {
-			Statement s = this._mysql.createStatement();
-			s.execute( "SET time_zone = 'America/New_York';" );
-		} catch( SQLException ex ) {
-			ex.printStackTrace();
 		}
 	}
 	

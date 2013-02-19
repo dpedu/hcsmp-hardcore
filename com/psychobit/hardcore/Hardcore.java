@@ -14,7 +14,6 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.CaveSpider;
 import org.bukkit.entity.Entity;
@@ -43,8 +42,8 @@ import com.dthielke.herochat.ChatterManager;
 import com.dthielke.herochat.Herochat;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
-import com.topcat.npclib.nms.NPCEntity;
 import com.trc202.CombatTag.CombatTag;
+import com.trc202.CombatTagApi.CombatTagApi;
 
 /**
  * Hardcore
@@ -248,7 +247,15 @@ public class Hardcore extends JavaPlugin implements Listener
 		
 		// Check for an NPC
 		String npcPlayerName = "ERROR";
-		boolean isNPC = ((CraftEntity)entity).getHandle() instanceof NPCEntity;
+		//boolean isNPC = ((CraftEntity)entity).getHandle() instanceof NPCEntity;
+		boolean isNPC = false;
+		CombatTagApi combatApi;
+		if (getServer().getPluginManager().getPlugin("CombatTag") != null) {
+			combatApi = new CombatTagApi((CombatTag) getServer().getPluginManager().getPlugin("CombatTag"));
+			if (combatApi != null) {
+				 isNPC = combatApi.isNPC(entity);
+			}
+		}
 		if ( isNPC )
 		{
 			Plugin p = this.getServer().getPluginManager().getPlugin( "CombatTag" );
