@@ -8,5 +8,6 @@
    c) Copy test.properties.tmpl to test.properties and update for your test database. 
       NOTE: tables are dropped in the test databases as part of the tests!
 4) mvn package (should build correctly)
+   a) mvn -DskipTests=true package (to skip tests when packaging)
 
 ... rejoice -cbarber
