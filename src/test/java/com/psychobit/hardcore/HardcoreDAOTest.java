@@ -60,7 +60,7 @@ public class HardcoreDAOTest
     @Test
     public void TestSurvivalTimeForNonExistantPlayer()
     {
-        int survivalTime = dao.survivalTime("DoesNotExist");
+        int survivalTime = dao.survivalTime("DoesNotExist", false);
         Assert.assertEquals("should return -1 survival time for non existant player", -1, survivalTime);
     }
     
@@ -74,7 +74,7 @@ public class HardcoreDAOTest
         
         Thread.sleep(1000);
         
-        int survivalTime = dao.survivalTime("OnlinePlayer");
+        int survivalTime = dao.survivalTime("OnlinePlayer", true);
         Assert.assertTrue("should return 2 to 3 seconds for online player survial time", 2 <= survivalTime && 3 >= survivalTime);
     }
     
@@ -88,12 +88,12 @@ public class HardcoreDAOTest
         
         Thread.sleep(1000);
         
-        int survivalTime = dao.survivalTime("OfflinePlayer");
+        int survivalTime = dao.survivalTime("OfflinePlayer", false);
         Assert.assertEquals("should return 1 second for offline player survial time", 1, survivalTime);
         
         Thread.sleep(1000);
         
-        survivalTime = dao.survivalTime("OfflinePlayer");
+        survivalTime = dao.survivalTime("OfflinePlayer", false);
         Assert.assertEquals("should not increase survival time while player is offline", 1, survivalTime);        
     }
     

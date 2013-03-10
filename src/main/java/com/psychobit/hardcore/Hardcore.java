@@ -661,7 +661,8 @@ public class Hardcore extends JavaPlugin implements Listener
 	{
 		int protectedTime = 0;
         Player player = this.getServer().getPlayer( playerName );
-        if ( player != null ) protectedTime = this._protected.containsKey( player.getName() ) ? this._protected.get( player.getName() ) : 0;
-        return this._dao.survivalTime( playerName ) - protectedTime;
+        boolean isPlayerOnline = (player != null);
+        if ( isPlayerOnline ) protectedTime = this._protected.containsKey( player.getName() ) ? this._protected.get( player.getName() ) : 0;
+        return this._dao.survivalTime( playerName, isPlayerOnline ) - protectedTime;
 	}
 }
