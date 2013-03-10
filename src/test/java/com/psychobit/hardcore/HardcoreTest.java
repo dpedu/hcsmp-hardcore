@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -25,6 +26,7 @@ public class HardcoreTest
         
         PlayerLoginEvent loginEvent = PowerMockito.mock(PlayerLoginEvent.class);
         when(loginEvent.getPlayer()).thenReturn(newPlayer);
+        when(loginEvent.getResult()).thenReturn(Result.ALLOWED);
         
         Hardcore hardcoreListener = new Hardcore();
         

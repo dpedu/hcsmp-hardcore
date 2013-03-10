@@ -61,7 +61,7 @@ public class HardcoreDAOTest
     public void TestSurvivalTimeForNonExistantPlayer()
     {
         int survivalTime = dao.survivalTime("DoesNotExist");
-        Assert.assertEquals("should return 0 survival time for non existant player", 0, survivalTime);
+        Assert.assertEquals("should return -1 survival time for non existant player", -1, survivalTime);
     }
     
     @Test
