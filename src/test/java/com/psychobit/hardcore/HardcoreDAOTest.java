@@ -1,14 +1,8 @@
 package com.psychobit.hardcore;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -17,55 +11,35 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.internal.runners.JUnit4ClassRunner;
 
-import com.googlecode.flyway.core.Flyway;
 import com.psychobit.hardcore.HardcoreDAO;
 
 @RunWith(JUnit4ClassRunner.class)
-public class HardcoreDAOTest
+public class HardcoreDAOTest extends DatabaseTest
 {
-    private HardcoreDAO dao;
-    private Connection dbConnection;
-
+    HardcoreDAO dao;
+    
     @Before
-    public void Setup() throws SQLException, FileNotFoundException, IOException
+    public void before() 
     {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("test.properties"));
-        
-        String hostname = properties.getProperty("hostname");
-        String database = properties.getProperty("database");
-        String username = properties.getProperty("username");
-        String password = properties.getProperty("password");
-        String dataSource = "jdbc:mysql://" + hostname + "/" + database;
-
-        Flyway flyway = new Flyway();
-        flyway.setDataSource(dataSource, username, password);
-        flyway.clean();
-        flyway.migrate();
-        
-        dbConnection = DriverManager.getConnection(dataSource, username, password );
-        
         dao = new HardcoreDAO();
         dao.connect(hostname, database, username, password, null);
     }
     
-    @After 
-    public void Teardown() throws SQLException
+    @After
+    public void after() throws SQLException
     {
-        dbConnection.close();
-        
         dao.disconnect(null);
     }
     
     @Test
-    public void TestSurvivalTimeForNonExistantPlayer()
+    public void testSurvivalTimeForNonExistantPlayer()
     {
         int survivalTime = dao.survivalTime("DoesNotExist", false);
         Assert.assertEquals("should return -1 survival time for non existant player", -1, survivalTime);
     }
     
     @Test
-    public void TestSurvivalTimeForOnlinePlayer() throws SQLException, InterruptedException
+    public void testSurvivalTimeForOnlinePlayer() throws SQLException, InterruptedException
     {
         PreparedStatement s = dbConnection.prepareStatement(
                 "INSERT INTO `survival` ( `Username`, `Joined`, `LastOnline`, `SurvivalTime` ) VALUES( 'OnlinePlayer', NOW(), NOW(), 1)" 
@@ -79,7 +53,7 @@ public class HardcoreDAOTest
     }
     
     @Test
-    public void TestSurvivalTimeForOfflinePlayer() throws SQLException, InterruptedException
+    public void testSurvivalTimeForOfflinePlayer() throws SQLException, InterruptedException
     {
         PreparedStatement s = dbConnection.prepareStatement(
                 "INSERT INTO `survival` ( `Username`, `Joined`, `LastOnline`, `SurvivalTime` ) VALUES( 'OfflinePlayer', NOW(), NOW(), 1)" 
@@ -97,7 +71,7 @@ public class HardcoreDAOTest
         Assert.assertEquals("should not increase survival time while player is offline", 1, survivalTime);        
     }
     
-    protected int SelectScalarInteger(String sql) throws SQLException
+    protected int selectScalarInteger(String sql) throws SQLException
     {
         PreparedStatement s = dbConnection.prepareStatement(sql);
         
