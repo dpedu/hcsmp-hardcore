@@ -21,7 +21,7 @@
   -->
   
   <properties>
-    <bukkit.version>1.4.7-R1.1-SNAPSHOT</bukkit.version>
+    <bukkit.version>1.5-R0.1-SNAPSHOT</bukkit.version>
     <flyway.version>2.1</flyway.version>
     <powermock.version>1.5</powermock.version>
   </properties>
@@ -60,19 +60,19 @@
     </dependency>
 
     <!-- worldguard  - http://dev.bukkit.org/server-mods/worldguard/ -->
-    <!-- mvn deploy:deploy-file -Durl=file:///src/hcsmp/hcsmp-hardcore/lib/ -Dfile=../WorldGuard.jar -DgroupId=com.bukkit_plugins -DartifactId=WorldGuard -Dpackaging=jar -Dversion=5.7.1 -->
+    <!-- mvn deploy:deploy-file -Durl=file:///src/hcsmp/hcsmp-hardcore/lib/ -Dfile=../WorldGuard.jar -DgroupId=com.bukkit_plugins -DartifactId=WorldGuard -Dpackaging=jar -Dversion=5.7.3 -->
     <dependency>
       <groupId>com.bukkit_plugins</groupId>
       <artifactId>WorldGuard</artifactId>
-      <version>5.7.1</version>
+      <version>5.7.3</version>
     </dependency>
 
     <!-- worldedit   - http://dev.bukkit.org/server-mods/worldedit/ -->
-    <!-- mvn deploy:deploy-file -Durl=file:///src/hcsmp/hcsmp-hardcore/lib/ -Dfile=../WorldEdit.jar -DgroupId=com.bukkit_plugins -DartifactId=WorldEdit -Dpackaging=jar -Dversion=5.5.1 -->
+    <!-- mvn deploy:deploy-file -Durl=file:///src/hcsmp/hcsmp-hardcore/lib/ -Dfile=../WorldEdit.jar -DgroupId=com.bukkit_plugins -DartifactId=WorldEdit -Dpackaging=jar -Dversion=5.5.3 -->
     <dependency>
       <groupId>com.bukkit_plugins</groupId>
       <artifactId>WorldEdit</artifactId>
-      <version>5.5.1</version>
+      <version>5.5.3</version>
     </dependency>
     
     <!-- combattag   - http://dev.bukkit.org/server-mods/combat-tag/ -->
