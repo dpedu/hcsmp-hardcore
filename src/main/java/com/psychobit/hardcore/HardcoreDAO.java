@@ -79,7 +79,7 @@ public class HardcoreDAO
 		
 		// Make sure they have a survival entry for this month
 		try {
-			PreparedStatement s = this._mysql.prepareStatement( "SELECT `Username` FROM `survival` WHERE `Username` = ? AND MONTH(`Joined`) = MONTH( NOW() ) LIMIT 1" );
+			PreparedStatement s = this._mysql.prepareStatement( "SELECT `Username` FROM `survival` WHERE `Username` = ? AND MONTH(`Joined`) = MONTH( NOW() ) AND YEAR(`Joined`) = YEAR( NOW() ) LIMIT 1" );
 			s.setString( 1, minecraftID );
 			ResultSet rs = s.executeQuery();
 			if ( !rs.last() )
@@ -89,7 +89,7 @@ public class HardcoreDAO
 				s.executeUpdate();
 				newPlayer = true;
 			} else {
-				s = this._mysql.prepareStatement( "UPDATE `survival` SET `LastOnline` = NOW() WHERE `Username` = ? AND MONTH(`Joined`) = MONTH(NOW()) LIMIT 1" );
+				s = this._mysql.prepareStatement( "UPDATE `survival` SET `LastOnline` = NOW() WHERE `Username` = ? AND MONTH(`Joined`) = MONTH( NOW() ) AND YEAR(`Joined`) = YEAR( NOW() ) LIMIT 1" );
 				s.setString( 1, minecraftID );
 				s.executeUpdate();
 			}
@@ -107,7 +107,7 @@ public class HardcoreDAO
 	{
 		if ( this._mysql == null ) return;
 		try {
-			PreparedStatement s = this._mysql.prepareStatement( "UPDATE `survival` SET `SurvivalTime` = ( `SurvivalTime` + TIME_TO_SEC( TIMEDIFF( NOW(), `LastOnline` ) ) - ? ), `LastOnline` = NOW() WHERE `Username` = ? AND MONTH(`Joined`) = MONTH(NOW()) LIMIT 1" );
+			PreparedStatement s = this._mysql.prepareStatement( "UPDATE `survival` SET `SurvivalTime` = ( `SurvivalTime` + TIME_TO_SEC( TIMEDIFF( NOW(), `LastOnline` ) ) - ? ), `LastOnline` = NOW() WHERE `Username` = ? AND MONTH(`Joined`) = MONTH(NOW()) AND YEAR(`Joined`) = YEAR( NOW() ) LIMIT 1" );
 			s.setDouble( 1, time );
 			s.setString( 2, minecraftID );
 			s.executeUpdate();
@@ -214,7 +214,7 @@ public class HardcoreDAO
 	{
 		if ( this._mysql == null ) return true;
 		try {
-			PreparedStatement s = this._mysql.prepareStatement( "SELECT COUNT(*) FROM `survival` WHERE `Username` = ? AND MONTH(`Joined`) = MONTH(NOW()) LIMIT 1" );
+			PreparedStatement s = this._mysql.prepareStatement( "SELECT COUNT(*) FROM `survival` WHERE `Username` = ? AND MONTH(`Joined`) = MONTH(NOW()) AND YEAR(`Joined`) = YEAR( NOW() ) LIMIT 1" );
 			s.setString( 1, minecraftID );
 			ResultSet rs = s.executeQuery();
 			if ( !rs.last() ) return false;
@@ -235,7 +235,7 @@ public class HardcoreDAO
 	{
 		if ( this._mysql == null ) return -1;
 		try {
-			PreparedStatement s = this._mysql.prepareStatement( "SELECT `SurvivalTime`, TIME_TO_SEC( TIMEDIFF( NOW(), `LastOnline` ) ) FROM `survival` WHERE `Username` = ? AND MONTH(`Joined`) = MONTH(NOW()) LIMIT 1" );
+			PreparedStatement s = this._mysql.prepareStatement( "SELECT `SurvivalTime`, TIME_TO_SEC( TIMEDIFF( NOW(), `LastOnline` ) ) FROM `survival` WHERE `Username` = ? AND MONTH(`Joined`) = MONTH(NOW()) AND YEAR(`Joined`) = YEAR( NOW() ) LIMIT 1" );
 			s.setString( 1, minecraftID );
 			ResultSet rs = s.executeQuery();
 			if ( rs.last() )
