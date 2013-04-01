@@ -231,7 +231,7 @@ public class HardcoreDAO
 	 * @param minecraftID
 	 * @return
 	 */
-	public int survivalTime( String minecraftID )
+	public int survivalTime( String minecraftID, boolean isPlayerOnline )
 	{
 		if ( this._mysql == null ) return -1;
 		try {
@@ -240,7 +240,10 @@ public class HardcoreDAO
 			ResultSet rs = s.executeQuery();
 			if ( rs.last() )
 			{
-				if ( rs.getInt( 2 ) > 0 ) return rs.getInt( 1 ) + rs.getInt( 2 );
+				if ( isPlayerOnline && rs.getInt( 2 ) > 0 )
+				{
+				    return rs.getInt( 1 ) + rs.getInt( 2 );
+				}
 				return rs.getInt( 1 );
 			}
 		} catch( SQLException e ) {
