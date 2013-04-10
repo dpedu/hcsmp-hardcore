@@ -185,7 +185,7 @@ public class Hardcore extends JavaPlugin implements Listener
 		// Kick out dead players
 		if ( this._dao.playerDead( playerName ) )
 		{
-			e.setKickMessage( "You are dead! Come back on " + reviveDate + "! - http://hcsmp.com" );
+			e.setKickMessage( "You are dead! Come back on " + reviveDate + " or play the graveyard server at graveyard.hcsmp.com! - http://hcsmp.com" );
 			e.setResult( Result.KICK_OTHER );
 			return;
 		}
@@ -331,7 +331,7 @@ public class Hardcore extends JavaPlugin implements Listener
         this.getServer().getScheduler().scheduleSyncDelayedTask( this , new Runnable() {
             public void run()
             {
-            	if ( target != null ) target.kickPlayer( "You have died!" );
+            	if ( target != null ) target.kickPlayer( "You have died! You can now play on the graveyard server at graveyard.hcsmp.com." );
             }
         }, 20L );
 	}
