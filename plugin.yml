@@ -3,8 +3,8 @@ main: com.psychobit.hardcore.Hardcore
 version: 3.0
 commands:
   hardcore:
-    description: Hardcore
+    description: Lookup player survival time.
     usage: /hardcore slay|res|info
   hcsmp:
-    description: Hardcore
+    description: Lookup player survival time.
     usage: /hardcore slay|res|info
